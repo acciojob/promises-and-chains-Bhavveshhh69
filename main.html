@@ -1,13 +1,46 @@
 <!DOCTYPE html>
-
 <html>
-  <head>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+<head>
+    <title>Promises and Age Validation</title>
+</head>
+<body>
 
-  <body>
-    <!-- write the body here -->
+    <form id="voteForm">
+        <input type="number" id="age" placeholder="Enter your age">
+        <input type="text" id="name" placeholder="Enter your name">
+        <button id="btn" type="submit">Submit</button>
+    </form>
 
-    <script type="text/javascript" src="./script.js"></script>
-  </body>
+    <script>
+        document.getElementById("voteForm").addEventListener("submit", function (e) {
+            e.preventDefault(); // prevent page reload
+
+            const age = document.getElementById("age").value.trim();
+            const name = document.getElementById("name").value.trim();
+
+            // Validation
+            if (age === "" || name === "") {
+                alert("Please enter valid details.");
+                return;
+            }
+
+            // Promise Function
+            const checkAge = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (Number(age) > 18) {
+                        resolve(`Welcome, ${name}. You can vote.`);
+                    } else {
+                        reject(`Oh sorry ${name}. You aren't old enough.`);
+                    }
+                }, 4000);
+            });
+
+            // Handling the Promise
+            checkAge
+                .then((msg) => alert(msg))
+                .catch((err) => alert(err));
+        });
+    </script>
+
+</body>
 </html>
