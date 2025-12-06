@@ -5,15 +5,13 @@
 </head>
 <body>
 
-    <form id="voteForm">
-        <input type="number" id="age" placeholder="Enter your age">
-        <input type="text" id="name" placeholder="Enter your name">
-        <button id="btn" type="submit">Submit</button>
-    </form>
+    <input type="number" id="age" placeholder="Enter your age">
+    <input type="text" id="name" placeholder="Enter your name">
+    <button id="btn">Submit</button>
 
     <script>
-        document.getElementById("voteForm").addEventListener("submit", function (e) {
-            e.preventDefault(); // prevent page reload
+        document.getElementById("btn").addEventListener("click", function (e) {
+            e.preventDefault();  // important for Cypress
 
             const age = document.getElementById("age").value.trim();
             const name = document.getElementById("name").value.trim();
@@ -24,8 +22,7 @@
                 return;
             }
 
-            // Promise Function
-            const checkAge = new Promise((resolve, reject) => {
+            const promise = new Promise((resolve, reject) => {
                 setTimeout(() => {
                     if (Number(age) > 18) {
                         resolve(`Welcome, ${name}. You can vote.`);
@@ -35,10 +32,9 @@
                 }, 4000);
             });
 
-            // Handling the Promise
-            checkAge
-                .then((msg) => alert(msg))
-                .catch((err) => alert(err));
+            promise
+                .then(msg => alert(msg))
+                .catch(err => alert(err));
         });
     </script>
 
